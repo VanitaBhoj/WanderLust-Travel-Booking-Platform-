@@ -4,6 +4,12 @@ A modern, user-friendly travel booking platform that simplifies discovering, pla
 
 
 
+
+
+
+
+
+
 **📌 Current Development Progress**
 
 ✅ Phase 1 — Initial Project Setup Completed
@@ -32,6 +38,17 @@ Core application entry point (app.js) set up to initialize the server
 npm dependencies installed and lock file generated
 
 
+
+
+
+
+
+
+
+
+
+
+
 **🎯 Features Planned in Next Stages**
 
 User authentication & profiles
@@ -46,7 +63,17 @@ Personalized travel recommendations
 
 Responsive and interactive frontend UI
 
-🛠️ Tech Stack (Planned)
+
+
+
+
+
+
+
+
+
+
+**🛠️ Tech Stack (Planned)**
 Backend: Node.js, Express.js
 
 Frontend: HTML, CSS, JS / Future React.js integration
@@ -54,6 +81,11 @@ Frontend: HTML, CSS, JS / Future React.js integration
 Database: MongoDB / PostgreSQL (final choice pending)
 
 APIs: Integration with third-party travel booking APIs (Skyscanner, Amadeus, etc.)
+
+
+
+
+
 
 
 **📅 Next Development Steps**
