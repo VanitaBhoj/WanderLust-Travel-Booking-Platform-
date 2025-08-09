@@ -1,7 +1,11 @@
-WanderLust 🌍✈️
+**WanderLust 🌍✈️**
+
 A modern, user-friendly travel booking platform that simplifies discovering, planning, and reserving travel experiences worldwide.
 
-📌 Current Development Progress
+
+
+**📌 Current Development Progress**
+
 ✅ Phase 1 — Initial Project Setup Completed
 Backend framework setup (Node.js / Express.js base)
 
@@ -27,7 +31,9 @@ Core application entry point (app.js) set up to initialize the server
 
 npm dependencies installed and lock file generated
 
-🎯 Features Planned in Next Stages
+
+**🎯 Features Planned in Next Stages**
+
 User authentication & profiles
 
 Flight, hotel, and tour search with filters
@@ -49,7 +55,8 @@ Database: MongoDB / PostgreSQL (final choice pending)
 
 APIs: Integration with third-party travel booking APIs (Skyscanner, Amadeus, etc.)
 
-📅 Next Development Steps
+
+**📅 Next Development Steps**
 Finalize database structure and entity relationships
 
 Implement user authentication middleware
