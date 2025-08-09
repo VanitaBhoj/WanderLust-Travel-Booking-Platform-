@@ -1,0 +1,85 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+
+    <!-- Listing Title -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary"><%= listing.title %></h2>
+    </div>
+
+    <!-- Listing Card -->
+    <div class="card mx-auto shadow-lg border-0 rounded-4" style="max-width: 800px;">
+        <img src="<%= listing.image %>" class="card-img-top rounded-top-4" alt="listing_image" style="object-fit: cover; max-height: 400px;">
+        
+        <div class="card-body p-4">
+            <p class="card-text mb-3 fs-5 text-muted"><%= listing.description %></p>
+            <h5 class="mb-1 text-success">&#8377; <%= listing.price %> / night</h5>
+            <p class="mb-0 fw-semibold"><i class="bi bi-geo-alt-fill text-danger"></i> <%= listing.location %>, <%= listing.country %></p>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-center gap-3 my-4">
+        <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning px-4 fw-semibold shadow-sm">✏ Edit</a>
+        
+        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" onsubmit="return confirm('Are you sure you want to delete this listing?');">
+            <button class="btn btn-danger px-4 fw-semibold shadow-sm">🗑 Delete</button>
+        </form>
+    </div>
+
+    <!-- Review Section -->
+    <div class="card mx-auto mt-5 shadow border-0 rounded-4 p-4" style="max-width: 800px;">
+        <h4 class="fw-bold text-center mb-4 text-primary">⭐ Leave a Review</h4>
+        
+        <form action="/listings/<%= listing.id %>/reviews" method="POST" class="needs-validation" novalidate>
+            
+            <!-- Rating -->
+            <div class="mb-4">
+                <label for="rating" class="form-label fw-semibold">Rating</label>
+                <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range" style="accent-color: #ff9800;">
+                <div class="d-flex justify-content-between small text-muted">
+                    <span>😞 1</span>
+                    <span>😐 3</span>
+                    <span>😍 5</span>
+                </div>
+            </div>
+
+            <!-- Comment -->
+            <div class="mb-4">
+                <label for="comment" class="form-label fw-semibold">Comment</label>
+                <textarea 
+                    name="review[comment]" 
+                    id="comment" 
+                    rows="4" 
+                    class="form-control border-primary shadow-sm" 
+                    placeholder="Share your experience..." 
+                    required></textarea>
+                <div class="invalid-feedback">
+                    Please add some comments for your review.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button class="btn btn-primary px-5 py-2 fw-semibold shadow-sm">Submit Review</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap Validation Script -->
+<script>
+(function () {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+</script>
