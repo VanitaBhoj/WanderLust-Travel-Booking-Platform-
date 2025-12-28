@@ -1,28 +1,274 @@
-<% layout("/layouts/boilerplate") %>
+<% layout("/layouts/boilerplate") %> 
 <body>
-    <h3><br> All Listings</h3>
-    <br>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-        <% for(let listing of allListings){ %>
-          <div class="col">
-            <a href="/listings/<%= listing.id %>" class="listing-link">
-              <div class="card">
-                <img src="<%= listing.image %>"
-                  class="card-img-top" 
-                  alt="listing_image" 
-                  style="height :20rem"
-                />
-                <div class="card-img-overlay"></div>
-                <div class="card-body">
-                  <p class="card-text"> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ---------- GLOBAL ---------- */
+body {
+  background: #f7f7f7;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont;
+}
 
-                    <b><%= listing.title %> </b> <br/>
-                    &#8377; <%= listing.price.toLocaleString("en-IN") %>/night
-                </p>
-                </div>
-              </div>
-            </a> <!-- ✅ Correctly placed -->
-          </div>
-        <% } %>
+/* ---------- FILTER BAR ---------- */
+#filters-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.filters-left {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+   padding: 0.5rem 3rem 0.5rem 3rem;
+}
+.filters-left::-webkit-scrollbar {
+  display: none;
+}
+
+.filter {
+  min-width: 80px;
+  text-align: center;
+  border-radius: 0.75rem;
+  transition: 
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  color: #444;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+}
+
+.filter i {
+   font-size: 1.3rem;  
+  margin-bottom: 0.25rem;
+}
+
+.filter p {
+  font-size: 0.72rem;
+  margin: 0;
+}
+
+.filter:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow:  0 4px 12px rgba(0,0,0,0.18);
+  cursor: pointer;
+}
+.filter:hover i {
+  transform: scale(1.08);
+  transition: transform 0.25s ease;
+}
+
+/* Arrow button */
+#toggle-more {
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+}
+
+/* ---------- RIGHT SIDE ---------- */
+.filters-right button {
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+}
+
+/* ---------- SWITCH ---------- */
+.form-switch .form-check-input {
+  cursor: pointer;
+}
+
+/* ---------- LISTING GRID ---------- */
+.listing-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.listing-card {
+  border: none;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  background: #fff;
+}
+
+.listing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Image zoom */
+.listing-card img {
+  height: 20rem;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.listing-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Gradient overlay */
+.card-img-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+/* Card body */
+.card-body {
+  padding: 1rem 1.1rem;
+}
+
+.card-text b {
+  font-size: 1.05rem;
+}
+
+.card-text {
+  color: #333;
+}
+
+/* ---------- TAX ---------- */
+.tax-info {
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* ---------- MORE FILTERS ---------- */
+#more-filters {
+  display: flex;
+  gap: 1.25rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  #filters-bar {
+    border-radius: 0.75rem;
+  }
+  .listing-card img {
+    height: 16rem;
+  }
+}
+</style>
+
+  <br>
+  <div id="filters-bar" class="container-fluid mt-3">
+  <div class="filters-left">
+    <!-- always visible filters -->
+    <div class="filter"><div><i class="fa-solid fa-tractor"></i></div><p>Farms</p></div>
+    <div class="filter"><div><i class="fa-solid fa-bed"></i></div><p>Rooms</p></div>
+    <div class="filter"><div><i class="fa-solid fa-mountain"></i></div><p>Amazing views</p></div>
+    <div class="filter"><div><i class="fa-solid fa-city"></i></div><p>Iconic cities</p></div>
+    <div class="filter"><div><i class="fa-solid fa-person-swimming"></i></div><p>Surfing</p></div>
+    <div class="filter"><div><i class="fa-solid fa-water-ladder"></i></div><p>Amazing pools</p></div>
+    <div class="filter"><div><i class="fa-solid fa-umbrella-beach"></i></div><p>Beach</p></div>
+    <div class="filter"><div><i class="fa-solid fa-house"></i></div><p>Cabins</p></div>
+    <div class="filter"><div><i class="fa-solid fa-water"></i></div><p>Lakefront</p></div>
+    <div class="filter"><div><i class="fa-solid fa-building-columns"></i></div><p>Domes</p></div>
+
+    <!-- arrow button -->
+    <button id="toggle-more" class="btn btn-sm btn-outline-secondary ms-2">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+ <!-- hidden filters that arrow controls -->
+    <div id="more-filters" class="d-none">
+      <div class="filter"><div><i class="fa-solid fa-snowflake"></i></div><p>Arctic</p></div>
+      <div class="filter"><div><i class="fa-solid fa-pen-ruler"></i></div><p>Design</p></div>
     </div>
+
+  <div class="filters-right">
+    <button class="btn btn-outline-secondary btn-sm me-2">
+      <i class="fa-solid fa-sliders"></i> Filters
+    </button>
+
+    <div class="form-check form-switch d-inline-flex align-items-center">
+      <input class="form-check-input me-1" type="checkbox" id="taxSwitch">
+      <label class="form-check-label small" for="taxSwitch">
+        Display total before taxes
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+    <% for(let listing of allListings){ %>
+  <div class="col">
+    <a href="/listings/<%= listing.id %>" class="listing-link">
+      <div class="card col listing-card">
+        <img 
+              src="<%= listing.image && listing.image.url ? listing.image.url : '/images/default.jpg' %>"
+              class="card-img-top"
+              alt="listing_images"
+              style="height:20rem"
+            />
+      <div class="card-img-overlay"></div>
+        <div class="card-body">
+          <p class="card-text"> 
+            <b><%= listing.title %></b><br/>
+            ₹ <%= listing.price.toLocaleString("en-IN") %>/night
+            <span class="tax-info d-none">&nbsp;&nbsp;+18% GST</span>
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+<% } %>
+
+  </div>
 </body>
+
+<!-- Auto Dismiss Flash Messages -->
+<script>
+  setTimeout(() => {
+    let alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      let bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 4000); // dismiss after 4 seconds
+  const taxSwitch = document.getElementById('taxSwitch');
+  const taxInfoElements = document.querySelectorAll('.tax-info');
+
+  taxSwitch.addEventListener('change', () => {
+    taxInfoElements.forEach(elem => {
+      if (taxSwitch.checked) {
+        elem.classList.remove('d-none');
+      } else {
+        elem.classList.add('d-none');
+      }
+    });
+  });
+
+
+const moreFilters = document.getElementById('more-filters');
+const toggleMore = document.getElementById('toggle-more');
+let moreOpen = false;
+
+toggleMore.addEventListener('click', () => {
+  moreOpen = !moreOpen;
+  if (moreOpen) {
+    moreFilters.classList.remove('d-none');
+    toggleMore.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+  } else {
+    moreFilters.classList.add('d-none');
+    toggleMore.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+  }
+});
+document.querySelectorAll('.listing-card').forEach((card, i) => {
+  card.style.animation = `fadeUp 0.6s ease ${i * 0.08}s forwards`;
+});
+
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}`;
+document.head.appendChild(style);
+</script>

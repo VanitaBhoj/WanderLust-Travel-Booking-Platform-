@@ -10,8 +10,12 @@
         <div class="row mt-4">
             <div class="col-8 offset-2">
                 <h3>Edit Your Listing</h3>
-                <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
-                    <br>
+                <form method="POST"
+                 action="/listings/<%= listing._id %>?_method=PUT"
+                 nonvalidate
+                 class="needs-validation"
+                 enctype="multipart/form-data">
+                 <br>
         <div class="mb-3">
             <label for="title" 
             class="form-label">Title</label>
@@ -27,10 +31,14 @@
         </div>
 
         <div class="mb-3">
+            Original Listing Image:<br>
+                <img src="<%=originalImageUrl %>" class="img-fluid">
+        </div>
+        <div class="mb-3">
             <label for="image" 
-            class="form-label">Image link</label>
+            class="form-label">Upload new Image </label>
             <input name="listing[image]" class="form-control"
-            value="<%=listing.image %>" type="text">
+             type="file">
         </div>
 
         <div class="row">
